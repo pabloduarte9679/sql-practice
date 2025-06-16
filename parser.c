@@ -23,7 +23,7 @@ typedef struct{
 
 typedef struct{
   char *type;
-  char *data;
+  char data[100];
 }Token;
 
 Token *read_query(char *query);
@@ -36,12 +36,15 @@ int main(){
   char *filters[] = {"WHERE", "HAVING"};
   char operators[] = {'+', '-', '*', '/', '!', '='};
 
-  char query[1024];
-  fgets(query, 10, stdin);
-  printf("lol\n");
-  query[10] = '\0';
-
-  
+  char query[1000];
+//  scanf("%s", query);
+  fgets(query, 1000, stdin);
+  for(int i = 0; i < 1000; i++){
+    if(query[i] == '\n'){
+      query[i] = '\0';
+      break;
+    }
+  }
   Token *tokens = read_query(query);
   
   return 0;
@@ -54,16 +57,11 @@ Token *read_query(char *query){
   char str[100];
   Token tokens[100];
   int index = 0, local_index = 0;
-  while((c = query[local_index]) != '\0'){
-    if(c == ' ' || c == '\t' || c == '\n'){
+  while((c = query[index++]) != '\0'){
+    if(c == ' ' || c == '\n' || c == '\t'){
       state = 0;
-    }else if(state = 0){
+    }else if(state == 0){
       state = 1;
     }
-    if(state == 1 && c != '(' && c != ')' && c != ',' && c != ';'){
-      tokens[index].data[local_index++] = c;
-    }
   }
-  printf("%s", tokens[index].data);
-  return NULL;
 }
