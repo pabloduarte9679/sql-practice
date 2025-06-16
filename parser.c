@@ -23,7 +23,7 @@ typedef struct{
 
 typedef struct{
   char *type;
-  char data[100];
+  char *data;
 }Token;
 
 Token *read_query(char *query);
@@ -37,7 +37,6 @@ int main(){
   char operators[] = {'+', '-', '*', '/', '!', '='};
 
   char query[1000];
-//  scanf("%s", query);
   fgets(query, 1000, stdin);
   for(int i = 0; i < 1000; i++){
     if(query[i] == '\n'){
@@ -60,8 +59,14 @@ Token *read_query(char *query){
   while((c = query[index++]) != '\0'){
     if(c == ' ' || c == '\n' || c == '\t'){
       state = 0;
+      local_index = 0;
+      printf("str = %s\n", str);
     }else if(state == 0){
       state = 1;
     }
+    if(state == 1){
+      str[local_index++] = c;
+    }
   }
+  printf("str = %s\n", str);
 }
