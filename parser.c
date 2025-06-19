@@ -53,14 +53,17 @@ int main(){
 Token *read_query(char *query){
   int c;
   int state = 0;
-  char str[100];
+  char *str = NULL;
   Token tokens[100];
+  str = (char*)malloc(sizeof(char) * 100);
   int index = 0, local_index = 0;
   while((c = query[index++]) != '\0'){
     if(c == ' ' || c == '\n' || c == '\t'){
       state = 0;
       local_index = 0;
       printf("str = %s\n", str);
+      free(str);
+      str = (char*)malloc(sizeof(char) * 100);
     }else if(state == 0){
       state = 1;
     }
