@@ -23,10 +23,10 @@ typedef struct{
 
 typedef struct{
   char *type;
-  char *data;
+  char data[100];
 }Token;
 
-Token *read_query(char *query);
+Token *read_query(char *query, int *count);
 
 int main(){
   char *datatypes[] = {"INTEGER", "TEXT", "REAL", "BLOB", "NULL"};
@@ -44,22 +44,28 @@ int main(){
       break;
     }
   }
-  Token *tokens = read_query(query);
-  
+  int count;
+  Token *tokens = read_query(query, &count);
+  for(int i = 0; i <= count; i++){
+    printf("tokens[%d] = %s\n", i, tokens[i].data);
+  }
+  printf("count = %d\n", count); 
   return 0;
 }
 
 
-Token *read_query(char *query){
+Token *read_query(char *query, int *token_count){
   int c;
   int state = 0;
   char *str = NULL;
   Token tokens[100];
   str = (char*)malloc(sizeof(char) * 100);
-  int index = 0, local_index = 0;
+  int index = 0, local_index = 0, token_index = 0;
   while((c = query[index++]) != '\0'){
     if(c == ' ' || c == '\n' || c == '\t'){
       state = 0;
+      //tokens[token_index++].data = str;
+      memcpy(tokens[token_index++].data, str, strlen(str));
       local_index = 0;
       printf("str = %s\n", str);
       free(str);
@@ -72,4 +78,8 @@ Token *read_query(char *query){
     }
   }
   printf("str = %s\n", str);
+  memcpy(tokens[token_index].data, str, strlen(str));
+  free(str);
+  *token_count = token_index;
+  return tokens;
 }
