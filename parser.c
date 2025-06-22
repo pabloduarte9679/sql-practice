@@ -49,7 +49,9 @@ int main(){
   for(int i = 0; i <= count; i++){
     printf("tokens[%d] = %s\n", i, tokens[i].data);
   }
+  free(tokens);
   printf("count = %d\n", count); 
+
   return 0;
 }
 
