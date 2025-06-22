@@ -58,7 +58,8 @@ Token *read_query(char *query, int *token_count){
   int c;
   int state = 0;
   char *str = NULL;
-  Token tokens[100];
+  Token *tokens = NULL;
+  tokens = (Token*)malloc(sizeof(Token) * 100);
   str = (char*)malloc(sizeof(char) * 100);
   int index = 0, local_index = 0, token_index = 0;
   while((c = query[index++]) != '\0'){
