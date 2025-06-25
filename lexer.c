@@ -2,24 +2,6 @@
 #include <string.h>
 #include <stdlib.h>
 #include "lexer.h"
-typedef struct{
-  char *name;
-  char *type;
-  char **constraints;
-}Field;
-
-typedef struct{
-  char *field_name;
-  char *type;
-  void *data;
-}Record;
-
-typedef struct{
-  char *name;
-  int field_count;
-  void **fields;
-  void **records;
-}Table;
 
 
 int main(){
