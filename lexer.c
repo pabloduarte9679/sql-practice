@@ -42,6 +42,7 @@ int main(){
   Token *tokens = lexer(query, &count);
   for(int i = 0; i <= count; i++){
     printf("tokens[%d] = %s\n", i, tokens[i].data);
+    free(tokens[i].data);
   }
   free(tokens);
 
@@ -55,7 +56,7 @@ Token *lexer(char *query, int *token_count){
   char *str = NULL;
   Token *tokens = NULL;
   tokens = (Token*)malloc(sizeof(Token) * 100);
-  str = (char*)malloc(sizeof(char) * 100);
+  str = (char*)calloc(100, sizeof(char));
   int index = 0, local_index = 0, token_index = 0;
   while((c = query[index++]) != '\0'){
     if(c == ' ' || c == '\n' || c == '\t'){
@@ -64,7 +65,7 @@ Token *lexer(char *query, int *token_count){
       memcpy(tokens[token_index++].data, str, strlen(str));
       local_index = 0;
       free(str);
-      str = (char*)malloc(sizeof(char) * 100);
+      str = (char*)calloc(100, sizeof(char));
     }else if(state == 0){
       state = 1;
     }
