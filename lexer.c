@@ -26,7 +26,7 @@ typedef struct{
   char data[100];
 }Token;
 
-Token *read_query(char *query, int *count);
+Token *lexer(char *query, int *count);
 
 int main(){
   char *datatypes[] = {"INTEGER", "TEXT", "REAL", "BLOB", "NULL"};
@@ -45,7 +45,7 @@ int main(){
     }
   }
   int count;
-  Token *tokens = read_query(query, &count);
+  Token *tokens = lexer(query, &count);
   for(int i = 0; i <= count; i++){
     printf("tokens[%d] = %s\n", i, tokens[i].data);
   }
@@ -56,7 +56,7 @@ int main(){
 }
 
 
-Token *read_query(char *query, int *token_count){
+Token *lexer(char *query, int *token_count){
   int c;
   int state = 0;
   char *str = NULL;
