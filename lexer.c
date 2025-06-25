@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-
+#include "lexer.h"
 typedef struct{
   char *name;
   char *type;
@@ -21,12 +21,6 @@ typedef struct{
   void **records;
 }Table;
 
-typedef struct{
-  char *type;
-  char data[100];
-}Token;
-
-Token *lexer(char *query, int *count);
 
 int main(){
   char *datatypes[] = {"INTEGER", "TEXT", "REAL", "BLOB", "NULL"};

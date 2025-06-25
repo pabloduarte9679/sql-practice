@@ -6,4 +6,5 @@ typedef struct{
   char data[100];
 }Token;
 
+Token *lexer(char *query, int *count);
 #endif
