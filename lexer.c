@@ -56,16 +56,29 @@ Token *lexer(char *query, int *token_count){
   char *str = NULL;
   Token *tokens = NULL;
   tokens = (Token*)malloc(sizeof(Token) * 100);
+  if(tokens == NULL){
+    fprintf(stderr, "Error allocating memory\n");
+    exit(1);
+  }
   str = (char*)calloc(100, sizeof(char));
+  if(str == NULL){
+    fprintf(stderr, "Error allocating memory\n");
+    free(tokens);
+    exit(1);
+  }
   int index = 0, local_index = 0, token_index = 0;
   while((c = query[index++]) != '\0'){
     if(c == ' ' || c == '\n' || c == '\t'){
       state = 0;
-      //tokens[token_index++].data = str;
       memcpy(tokens[token_index++].data, str, strlen(str));
       local_index = 0;
       free(str);
       str = (char*)calloc(100, sizeof(char));
+      if(str == NULL){
+        fprintf(stderr, "Error allocating memory\n");
+        free(tokens);
+        exit(1);
+      }
     }else if(state == 0){
       state = 1;
     }
