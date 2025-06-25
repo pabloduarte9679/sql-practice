@@ -1,6 +1,8 @@
 # sql-practice
 sql code editor make for practicing sql queries
 
+inspired by this type of software https://www.programiz.com/sql/online-compiler
+
 # compile NOTE: not complete
 make
 
