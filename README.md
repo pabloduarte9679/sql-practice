@@ -1,13 +1,17 @@
 # sql-practice
 sql code editor make for practicing sql queries
 
-# compile
+# compile NOTE: not complete
 make
 
 make sure you have ncurses installed.
 
 # work in progress 
 This project is still in development and is not usable at the moment
+
+# lexer.c file
+
+File that contains a lexer to generate tokens form a sql query
 
 # parser.c file
 
