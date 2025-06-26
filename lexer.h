@@ -16,7 +16,7 @@
 #define TEXT             12
 #define REAL 	    	 13
 #define BLOB             14
-#define NULL             15
+#define NULL_T           15
 #define CREATE           16
 #define SELECT           17
 #define INSERT           18
@@ -52,6 +52,14 @@ typedef struct{
   int type;
   char data[100];
 }Token;
+
+char *datatypes[] = {"INTEGER", "TEXT", "REAL", "BLOB", "NULL"};
+char *instructions[] = {"CREATE", "SELECT", "INSERT", "ALTER", "DROP", "DELETE", "UPDATE", "FROM", "ORDER"};
+char *constraint[] = {"IF", "NOT", "TABLE", "EXISTS", "OR", "AND" "PRIMARY", "KEY", "FOREIGN", "NULL", "UNIQUE", "BY", "SET"};
+char *functions[] = {"AVG", "SUM", "COUNT", "MAX", "MIN"};
+char *filters[] = {"WHERE", "HAVING"};
+char operators[] = {'+', '-', '*', '/', '!', '='};
+int check_type(char *str);
 
 Token *lexer(char *query, int *count);
 #endif
