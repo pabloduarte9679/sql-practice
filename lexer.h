@@ -54,6 +54,7 @@ typedef struct{
 }Token;
 
 char *datatypes[] = {"INTEGER", "TEXT", "REAL", "BLOB", "NULL"};
+#define DTCOUNT 5
 char *instructions[] = {"CREATE", "SELECT", "INSERT", "ALTER", "DROP", "DELETE", "UPDATE", "FROM", "ORDER"};
 char *constraint[] = {"IF", "NOT", "TABLE", "EXISTS", "OR", "AND" "PRIMARY", "KEY", "FOREIGN", "NULL", "UNIQUE", "BY", "SET"};
 char *functions[] = {"AVG", "SUM", "COUNT", "MAX", "MIN"};
