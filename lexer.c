@@ -5,12 +5,6 @@
 
 
 int main(){
-  char *datatypes[] = {"INTEGER", "TEXT", "REAL", "BLOB", "NULL"};
-  char *instructions[] = {"CREATE", "SELECT", "INSERT", "ALTER", "DROP", "DELETE", "UPDATE", "FROM", "ORDER"};
-  char *constraint[] = {"IF", "NOT", "TABLE", "EXISTS", "OR", "AND" "PRIMARY", "KEY", "FOREIGN", "NULL", "UNIQUE", "BY", "SET"};
-  char *functions[] = {"AVG", "SUM", "COUNT", "MAX", "MIN"};
-  char *filters[] = {"WHERE", "HAVING"};
-  char operators[] = {'+', '-', '*', '/', '!', '='};
 
   char query[1000];
   fgets(query, 1000, stdin);
@@ -31,7 +25,13 @@ int main(){
   return 0;
 }
 
-
+int check_type(char *str){
+  for(int i = 0; i < DTCOUNT; i++){
+    if(strcmp(str, datatypes[i]) == 0){
+      return DATATYPE;
+    }
+  } 
+}
 Token *lexer(char *query, int *token_count){
   int c;
   int state = 0;
@@ -52,7 +52,15 @@ Token *lexer(char *query, int *token_count){
   while((c = query[index++]) != '\0'){
     if(c == ' ' || c == '\n' || c == '\t'){
       state = 0;
+      str[local_index] = '\0';
       memcpy(tokens[token_index++].data, str, strlen(str));
+      //  check token type 
+   
+      switch (check_type(str)){
+        case DATATYPE:
+          printf("datatype\n");
+          break;
+      }     
       local_index = 0;
       free(str);
       str = (char*)calloc(100, sizeof(char));
