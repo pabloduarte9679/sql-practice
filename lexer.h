@@ -53,13 +53,14 @@ typedef struct{
   char data[100];
 }Token;
 
-char *datatypes[] = {"INTEGER", "TEXT", "REAL", "BLOB", "NULL"};
 #define DTCOUNT 5
-char *instructions[] = {"CREATE", "SELECT", "INSERT", "ALTER", "DROP", "DELETE", "UPDATE", "FROM", "ORDER"};
 #define INSTCOUNT 9
-char *constraint[] = {"IF", "NOT", "TABLE", "EXISTS", "OR", "AND" "PRIMARY", "KEY", "FOREIGN", "NULL", "UNIQUE", "BY", "SET"};
-char *functions[] = {"AVG", "SUM", "COUNT", "MAX", "MIN"};
-char *filters[] = {"WHERE", "HAVING"};
+
+int datatypes[] = {INTEGER, TEXT, REAL, BLOB, NULL};
+int instructions[] = {CREATE, SELECT, INSERT, ALTER, DROP, DELETE, UPDATE, FROM, ORDER};
+int constraint[] = {IF, NOT, TABLE, EXISTS, OR, AND, PRIMARY, KEY, FOREIGN, NULL, UNIQUE, BY, SET};
+int functions[] = {AVG, SUM, COUNT, MAX, MIN};
+int filters[] = {"WHERE", "HAVING"};
 char operators[] = {'+', '-', '*', '/', '!', '='};
 int check_type(char *str);
 
