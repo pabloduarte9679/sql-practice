@@ -1,67 +1,67 @@
 #ifndef LEXER_H
 #define LEXER_H
+#define INTEGER             0
+#define TEXT                1
+#define REAL                2
+#define BLOB                3
+#define NULL_T              4
+#define CREATE              5
+#define SELECT              6
+#define INSERT              7
+#define ALTER               8
+#define DROP                9
+#define DELETE             10
+#define UPDATE             11
+#define FROM               12
+#define ORDER              13
+#define IF                 14
+#define NOT                15
+#define TABLE              16
+#define EXISTS             17
+#define OR                 18
+#define AND                19
+#define PRIMARY            20
+#define KEY                21
+#define FOREIGN            22
+#define REFERENCES         23
+#define CONSTRAINT         24
+#define NULL_C             25
+#define UNIQUE             26
+#define BY                 27
+#define SET                28
+#define WHERE              29
+#define HAVING             30
+#define PLUS               31
+#define MINUS              32
+#define TIMES              33
+#define DIVISION           34
+#define NOT_L              35
+#define EQUAL              36
+#define OPEN_PARENTHESES   37
+#define CLOSE_PARENTHESES  38
+#define COMMA              39
+#define SEMICOLON          40
+#define QUOTE              41
+#define IDENTIFIER         42
+#define STRING             43
+#define NUMBER_I           44
+#define NUMBER_F           45
 
-#define DATATYPE          0 
-#define STATEMENT         1
-#define CONSTRAINT        2
-#define FUNCTION          3
-#define FILTER            4
-#define OPERATOR          5
-#define OPEN_PARENTHESES  6
-#define CLOSE_PARENTHESES 7
-#define COMMA             8
-#define SEMICOLON         9
-#define INDENTIFIER      10
-#define INTEGER          11
-#define TEXT             12
-#define REAL 	    	 13
-#define BLOB             14
-#define NULL_T           15
-#define CREATE           16
-#define SELECT           17
-#define INSERT           18
-#define ALTER            19
-#define DROP             20
-#define DELETE           21
-#define UPDATE           22
-#define FROM             23
-#define ORDER            24
-#define IF               25
-#define NOT              26
-#define TABLE            27
-#define EXISTS           28
-#define OR               29
-#define AND              30
-#define PRIMARY          31
-#define KEY              32
-#define FOREIGN          33
-#define NULL_C           34
-#define UNIQUE           35
-#define BY               36
-#define SET              37
-#define WHERE            38
-#define HAVING           39
-#define PLUS             40
-#define MINUS            41
-#define TIMES            42
-#define DIVSION          43
-#define NOT_OP           44
-#define EQUAL            45
 
 typedef struct{
   int type;
-  char data[100];
+  char value[100];
 }Token;
 
-#define DTCOUNT 5
-#define INSTCOUNT 9
-
-int datatypes[] = {INTEGER, TEXT, REAL, BLOB, NULL};
-int instructions[] = {CREATE, SELECT, INSERT, ALTER, DROP, DELETE, UPDATE, FROM, ORDER};
-int constraint[] = {IF, NOT, TABLE, EXISTS, OR, AND, PRIMARY, KEY, FOREIGN, NULL, UNIQUE, BY, SET};
-int functions[] = {AVG, SUM, COUNT, MAX, MIN};
-int filters[] = {"WHERE", "HAVING"};
-char operators[] = {'+', '-', '*', '/', '!', '='};
+char *keywords[] = {"INTEGER", "TEXT", "REAL", "BLOB", "NULL_T", "CREATE", "SELECT", "INSERT", "ALTER", "DROP", "DELETE", "UPDATE",
+"FROM", "ORDER", "IF", "NOT", "TABLE", "EXISTS", "OR", "AND", "PRIMARY", "KEY", "FOREIGN", "REFERENCES", "CONTRAINT", "NULL_C",
+"UNIQUE", "BY", "SET", "WHERE", "HAVING", "+", "-", "*", "/", "!", "=", "(", ")", ",", ";", "'"};
+//int datatypes[] = {INTEGER, TEXT, REAL, BLOB, NULL};
+//int instructions[] = {CREATE, SELECT, INSERT, ALTER, DROP, DELETE, UPDATE, FROM, ORDER};
+//int constraint[] = {IF, NOT, TABLE, EXISTS, OR, AND, PRIMARY, KEY, FOREIGN, NULL, UNIQUE, BY, SET};
+//int functions[] = {AVG, SUM, COUNT, MAX, MIN};
+//int filters[] = {"WHERE", "HAVING"};
+//char operators[] = {'+', '-', '*', '/', '!', '='};
 int check_type(char *str);
 
 Token *lexer(char *query, int *count);
