@@ -17,8 +17,8 @@ int main(){
   int count;
   Token *tokens = lexer(query, &count);
   for(int i = 0; i <= count; i++){
-    printf("tokens[%d] = %s, type = %d\n", i, tokens[i].data, tokens[i].type);
-    free(tokens[i].data);
+    printf("tokens[%d] = %s, type = %d\n", i, tokens[i].value, tokens[i].type);
+    free(tokens[i].value);
   }
   free(tokens);
 
@@ -26,34 +26,20 @@ int main(){
 }
 
 int check_type(char *str){
-  for(int i = 0; i < DTCOUNT; i++){
-    if(strcmp(str, datatypes[i]) == 0){
-      return DATATYPE;
+  for(int i = 0; i < 45; i++){
+    if(strcmp(str, keywords[i]) == 0){
+      return i;
     }
   }
-  for(int i = 0; i < INSTCOUNT; i++){
-    if(strcmp(str, instructions[i]) == 0){
-      return STATEMENT;
-    }
-  } 
 }
 
 int assign_type(Token *tok, int type){
-  switch (type){
-    case DATATYPE:
-      printf("datatype\n");
-      tok->type = DATATYPE;
-      break;
-    case STATEMENT:
-      printf("statement\n");
-      tok->type = STATEMENT;
-      break;
-    default:
-      printf("Unexpected\n");
-      tok->type = -1;
-      break;
-  }     
-  return 0;
+  if(type >= 0 && type <= 45){
+    tok->type = type;
+  }else{
+    tok->type = -1;
+  }
+  return type;
 }
 Token *lexer(char *query, int *token_count){
   int c;
@@ -76,7 +62,7 @@ Token *lexer(char *query, int *token_count){
     if(c == ' ' || c == '\n' || c == '\t'){
       state = 0;
       str[local_index] = '\0';
-      memcpy(tokens[token_index++].data, str, strlen(str));
+      memcpy(tokens[token_index++].value, str, strlen(str));
       //  check token type 
       assign_type(&tokens[token_index-1], check_type(str));  
       local_index = 0;
@@ -96,7 +82,7 @@ Token *lexer(char *query, int *token_count){
   }
   
   str[local_index] = '\0';
-  memcpy(tokens[token_index].data, str, strlen(str));
+  memcpy(tokens[token_index].value, str, strlen(str));
   assign_type(&tokens[token_index], check_type(str));
   free(str);
   *token_count = token_index;
