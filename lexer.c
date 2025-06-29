@@ -1,3 +1,4 @@
+#include <ctype.h>
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -30,6 +31,7 @@ int check_type(char *str){
       return i;
     }
   }
+  return -1;
 }
 
 int assign_type(Token *tok, int type){
@@ -41,7 +43,7 @@ int assign_type(Token *tok, int type){
   return type;
 }
 Token *lexer(char *query, int *token_count){
-  int c = 0, prev = 0;
+  int c = 0, prev = ' ';
   int state = 0;
   char *str = NULL;
   Token *tokens = NULL;
@@ -59,14 +61,13 @@ Token *lexer(char *query, int *token_count){
   int index = 0, str_index = 0, token_index = 0;
   while((c = query[index++]) != '\0'){
     if(prev == ' ' && c == ' ' && str_index == 0){
-      
+      prev = c;
       continue;
     }
     if(c == ' ' || c == '\n' || c == '\t'){
       state = 0;
       str[str_index] = '\0';
       memcpy(tokens[token_index++].value, str, strlen(str));
-      //  check token type 
       assign_type(&tokens[token_index-1], check_type(str));  
       str_index = 0;
       prev = c;
@@ -80,7 +81,18 @@ Token *lexer(char *query, int *token_count){
     }else if(state == 0){
       state = 1;
     }
+
+     
     if((state == 1 && c == '(') || (state == 1 &&  c == ')')){
+      if((prev != ' ' && isalpha(c) != 0) || (isalpha(prev) != 0)){
+        str[str_index] = '\0';
+	memcpy(tokens[token_index++].value,str,strlen(str));
+	assign_type(&tokens[token_index-1], check_type(str));
+	str_index = 0;
+	prev = c;
+	free(str);
+	str = (char*)calloc(100, sizeof(char));
+      }
       state = 0;
       str[str_index++] = c;
       str[str_index] = '\0';
@@ -98,14 +110,19 @@ Token *lexer(char *query, int *token_count){
     }
     if(state == 1){
       str[str_index++] = c;
+      prev = c;
     }
   }
-  
-  str[str_index] = '\0';
-  memcpy(tokens[token_index].value, str, strlen(str));
-  assign_type(&tokens[token_index], check_type(str));
+  if(strcmp(str, "") != 0){ 
+    str[str_index] = '\0';
+    memcpy(tokens[token_index].value, str, strlen(str));
+    assign_type(&tokens[token_index], check_type(str));
+    free(str);
+    *token_count = token_index;
+    return tokens;
+  }
   free(str);
-  *token_count = token_index;
+  *token_count = token_index-1;
   return tokens;
 }
 
