@@ -4,5 +4,7 @@ main: main.c
 
 lexer: lexer.c
 	gcc -o lexer lexer.c
+debuglexer: lexer.c
+	gcc -g -o lexer lexer.c
 parser: parser.c
 	gcc -o parser parser.c
