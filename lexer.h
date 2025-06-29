@@ -56,13 +56,8 @@ typedef struct{
 char *keywords[] = {"INTEGER", "TEXT", "REAL", "BLOB", "NULL_T", "CREATE", "SELECT", "INSERT", "ALTER", "DROP", "DELETE", "UPDATE",
 "FROM", "ORDER", "IF", "NOT", "TABLE", "EXISTS", "OR", "AND", "PRIMARY", "KEY", "FOREIGN", "REFERENCES", "CONTRAINT", "NULL_C",
 "UNIQUE", "BY", "SET", "WHERE", "HAVING", "+", "-", "*", "/", "!", "=", "(", ")", ",", ";", "'"};
-//int datatypes[] = {INTEGER, TEXT, REAL, BLOB, NULL};
-//int instructions[] = {CREATE, SELECT, INSERT, ALTER, DROP, DELETE, UPDATE, FROM, ORDER};
-//int constraint[] = {IF, NOT, TABLE, EXISTS, OR, AND, PRIMARY, KEY, FOREIGN, NULL, UNIQUE, BY, SET};
-//int functions[] = {AVG, SUM, COUNT, MAX, MIN};
-//int filters[] = {"WHERE", "HAVING"};
-//char operators[] = {'+', '-', '*', '/', '!', '='};
 int check_type(char *str);
+int assign_type(Token *tok, int type);
 
 Token *lexer(char *query, int *count);
 #endif
