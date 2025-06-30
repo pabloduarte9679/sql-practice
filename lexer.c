@@ -83,7 +83,7 @@ Token *lexer(char *query, int *token_count){
     }
 
      
-    if((state == 1 && c == '(') || (state == 1 &&  c == ')')){
+    if((state == 1 && ispunct(c)) != 0){
       if((prev != ' ' && isalpha(c) != 0) || (isalpha(prev) != 0)){
         str[str_index] = '\0';
 	memcpy(tokens[token_index++].value,str,strlen(str));
