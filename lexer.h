@@ -37,14 +37,14 @@ enum{
   HAVING,
   PLUS,
   MINUS,
-  TIMES,
-  DIVISION,
+  STAR,
+  SLASH,
   NOT_L,
-  EQUAL,
-  OPEN_PARENTHESES,
-  CLOSE_PARENTHESES,
+  EQ,
+  LP,
+  RP,
   COMMA,
-  SEMICOLON,
+  SEMI,
   QUOTE,
   IDENTIFIER,
   STRING,
@@ -62,6 +62,5 @@ char *keywords[] = {"INTEGER", "TEXT", "REAL", "BLOB", "NULL_T", "CREATE", "SELE
 "UNIQUE", "BY", "SET", "WHERE", "HAVING", "+", "-", "*", "/", "!", "=", "(", ")", ",", ";", "'"};
 int check_type(char *str);
 int assign_type(Token *tok, int type);
-
 Token *lexer(char *query, int *count);
 #endif
