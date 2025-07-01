@@ -87,6 +87,8 @@ Token *lexer(char *query, int *token_count){
       continue;
     }
     if(c == ' ' || c == '\n' || c == '\t'){
+      if(strcmp(str, "") == 0)
+        continue; 
       state = 0;
       str[str_index] = '\0';
       memcpy(tokens[token_index++].value, str, strlen(str));
