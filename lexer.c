@@ -26,7 +26,7 @@ int main(){
 }
 
 int check_type(char *str){
-  for(int i = 0; i < 42; i++){
+  for(int i = 0; i < 43; i++){
     if(strcmp(str, keywords[i]) == 0){
       return i;
     }
@@ -34,14 +34,36 @@ int check_type(char *str){
   return -1;
 }
 
+int check_indentifier(char *str){
+  if(strcmp(str, "") == 0){
+    printf("empty string exiting ...\n");
+    return 1;
+  }
+
+  if(isdigit(str[0]) != 0){
+    printf("Indentifer cannot start with numbers\n");
+    return 2;
+  }
+  for(int i = 1; i < strlen(str); i++){
+    if((isalpha(str[i]) == 0) || (str[i] == '_') || (isdigit(str[i]) != 0)){
+      printf("invalid character in indetifier\n");
+      return 3;
+    }
+  }
+  return 0;
+}
 int assign_type(Token *tok, int type){
-  if(type >= 0 && type <= 45){
+  if(type >= 0 && type <= 43){
     tok->type = type;
+  }else if(check_indentifier(tok->value) == 0){
+    tok->type = 44;
   }else{
-    tok->type = -1;
+    type = -1;
   }
   return type;
 }
+
+
 Token *lexer(char *query, int *token_count){
   int c = 0, prev = ' ';
   int state = 0;
