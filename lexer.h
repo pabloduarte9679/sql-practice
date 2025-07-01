@@ -61,6 +61,7 @@ char *keywords[] = {"INTEGER", "TEXT", "REAL", "BLOB", "NULL_T", "CREATE", "SELE
 "FROM", "ORDER", "INTO", "VALUES","IF", "NOT", "TABLE", "EXISTS", "OR", "AND", "PRIMARY", "KEY", "FOREIGN", "REFERENCES", "CONTRAINT", "NULL_C",
 "UNIQUE", "BY", "SET", "WHERE", "HAVING", "+", "-", "*", "/", "!", "=", "(", ")", ",", ";", "'"};
 int check_type(char *str);
+int check_indentifier(char *str);
 int assign_type(Token *tok, int type);
 Token *lexer(char *query, int *count);
 #endif
