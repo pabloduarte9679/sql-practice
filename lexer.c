@@ -1,9 +1,9 @@
 #include <ctype.h>
 #include <stdio.h>
-#include <string.h>
 #include <stdlib.h>
-#include "lexer.h"
+#include <string.h>
 
+#include "lexer.h"
 
 int main(){
   char query[1000];
@@ -18,10 +18,8 @@ int main(){
   Token *tokens = lexer(query, &count);
   for(int i = 0; i <= count; i++){
     printf("tokens[%d] = %s, type = %d\n", i, tokens[i].value, tokens[i].type);
-    free(tokens[i].value);
   }
   free(tokens);
-
   return 0;
 }
 
