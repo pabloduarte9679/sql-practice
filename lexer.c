@@ -2,18 +2,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
 #include "lexer.h"
+
 
 int main(){
   char query[1000];
   fgets(query, 1000, stdin);
-  for(int i = 0; i < 1000; i++){
-    if(query[i] == '\n'){
-      query[i] = '\0';
-      break;
-    }
-  }
   int count;
   Token *tokens = lexer(query, &count);
   for(int i = 0; i <= count; i++){
@@ -34,27 +28,36 @@ int check_type(char *str){
 
 int check_indentifier(char *str){
   if(strcmp(str, "") == 0){
-    printf("empty string exiting ...\n");
     return 1;
   }
 
   if(isdigit(str[0]) != 0){
-    printf("Indentifer cannot start with numbers\n");
     return 2;
   }
   for(int i = 1; i < strlen(str); i++){
     if((isalpha(str[i]) == 0) || (str[i] == '_') || (isdigit(str[i]) != 0)){
-      printf("invalid character in indetifier\n");
       return 3;
     }
   }
   return 0;
 }
+
+int check_integer(char const *str){
+  for(int i = 0; i < strlen(str); i++){
+    if(isdigit(str[i]) == 0){
+      return 0;
+    }
+  }
+  return 1;
+}
+
 int assign_type(Token *tok, int type){
   if(type >= 0 && type <= 43){
     tok->type = type;
   }else if(check_indentifier(tok->value) == 0){
-    tok->type = 44;
+    tok->type = IDENTIFIER;
+  }else if(check_integer(tok->value) == 1){
+    tok->type = NUMBER_I;
   }else{
     type = -1;
   }
