@@ -58,6 +58,8 @@ int assign_type(Token *tok, int type){
     tok->type = IDENTIFIER;
   }else if(check_integer(tok->value) == 1){
     tok->type = NUMBER_I;
+  }else if(strtof(tok->value, NULL) != 0){
+    tok->type = NUMBER_F;
   }else{
     type = -1;
   }
@@ -108,7 +110,7 @@ Token *lexer(char *query, int *token_count){
     }
 
      
-    if((state == 1 && ispunct(c)) != 0){
+    if((state == 1 && ispunct(c)) != 0 && c != '.'){
       if((prev != ' ' && isalpha(c) != 0) || (isalpha(prev) != 0)){
         str[str_index] = '\0';
 	memcpy(tokens[token_index++].value,str,strlen(str));
