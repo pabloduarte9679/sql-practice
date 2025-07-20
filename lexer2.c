@@ -18,7 +18,8 @@ int main(){
 }
 
 int check_type(char *str){
-  for(int i = 0; i < 43; i++){
+  for(int i = 0; i < 31; i++){
+
     if(strcmp(str, keywords[i]) == 0){
       return i;
     }
@@ -35,9 +36,9 @@ int check_indentifier(char *str){
     return 2;
   }
   for(int i = 1; i < strlen(str); i++){
-    if((isalpha(str[i]) == 0) || (str[i] == '_') || (isdigit(str[i]) != 0)){
-      return 3;
-    }
+	  if(str[i] == '_' && isalpha(str[i]) && isdigit(str[i])){
+      return 1;
+		}
   }
   return 0;
 }
@@ -56,10 +57,6 @@ int assign_type(Token *tok, int type){
     tok->type = type;
   }else if(check_indentifier(tok->value) == 0){
     tok->type = IDENTIFIER;
-  }else if(check_integer(tok->value) == 1){
-    tok->type = NUMBER_I;
-  }else if(strtof(tok->value, NULL) != 0){
-    tok->type = NUMBER_F;
   }else{
     type = -1;
   }
@@ -157,6 +154,22 @@ Token *lexer2(char *query, int *tk_count){
 			tmp[sindex] = '\0';
 			memcpy(tokens[tindex].value,tmp,strlen(tmp));
 			tokens[tindex++].type = NUMBER_I;
+			sindex = 0;
+			free(tmp);
+		}
+		if(isalpha(c)){
+      tmp = (char*)calloc(100, sizeof(char));
+			sindex = 0;
+			tmp[sindex++] = c;
+			c = query[i++];
+			while(isalpha(c) || c == '_' || isdigit(c)){
+        tmp[sindex++] = c;
+				c = query[i++];
+			}
+			c = query[i--];
+			tmp[sindex] = '\0';
+			memcpy(tokens[tindex].value,tmp,strlen(tmp));
+			assign_type(&tokens[tindex++], check_type(tmp));
 			sindex = 0;
 			free(tmp);
 		}
