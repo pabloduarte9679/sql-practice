@@ -8,6 +8,13 @@
 int main(){
   char query[1000];
   fgets(query, 1000, stdin);
+	for(int i = 0; i < 1000; i++){
+    if(query[i] == '\n'){
+      query[i] = '\0';
+			break;
+		}
+	}
+//  query = "SELECT first_name, age FROM Customers;";
   int count;
   Token *tokens = lexer2(query, &count);
   for(int i = 0; i < count; i++){
@@ -73,7 +80,7 @@ Token *lexer2(char *query, int *tk_count){
     fprintf(stderr, "Error allocating memory\n");
 		exit(1);
 	}
-	int i, sindex, tindex = 0;
+	int i = 0, sindex, tindex = 0;
 
 	while((c = query[i++]) != '\0'){
     // check for single characters
@@ -124,7 +131,14 @@ Token *lexer2(char *query, int *tk_count){
 			case '.':
 			  tokens[tindex++].type = DOT;
 				break;
-		}
+			case ' ':
+			  break;
+			case '\t':
+			  break;
+			case '\n':
+			  break;
+		  default:
+     
 		if(c == 34 || c == 39){
 		  tmp = (char*)calloc(100, sizeof(char));
 			sindex = 0;
@@ -141,7 +155,7 @@ Token *lexer2(char *query, int *tk_count){
 			sindex = 0;
 			free(tmp);
 		}
-		if(isdigit(c)){
+	else	if(isdigit(c)){
 		  tmp = (char*)calloc(100, sizeof(char));
 			sindex = 0;
 			tmp[sindex++] = c;
@@ -157,7 +171,7 @@ Token *lexer2(char *query, int *tk_count){
 			sindex = 0;
 			free(tmp);
 		}
-		if(isalpha(c)){
+		else if(isalpha(c)){
       tmp = (char*)calloc(100, sizeof(char));
 			sindex = 0;
 			tmp[sindex++] = c;
@@ -171,7 +185,10 @@ Token *lexer2(char *query, int *tk_count){
 			memcpy(tokens[tindex].value,tmp,strlen(tmp));
 			assign_type(&tokens[tindex++], check_type(tmp));
 			sindex = 0;
-			free(tmp);
+			free(tmp);;
+		}else {
+      puts("Error\n");
+		}
 		}
 	}
 	*tk_count = tindex;
