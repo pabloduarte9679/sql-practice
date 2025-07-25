@@ -117,13 +117,33 @@ Token *lexer2(char *query, int *tk_count){
         tokens[tindex++].type = REM;
         break;
       case '<':
+        if(query[i++] == '='){
+          tokens[tindex++].type = LE;
+          break;
+        }else{
+          i--;
+        }
         tokens[tindex++].type = LT;
         break;
       case '>':
+        if(query[i++] == '='){
+          tokens[tindex++].type = GE;
+          break;
+        }else{
+          i--;
+        }
         tokens[tindex++].type = GT;
         break;
       case '.':
         tokens[tindex++].type = DOT;
+        break;
+      case '!':
+        if(query[i++] == '='){
+          tokens[tindex++].type = NE;
+          break;
+        }else{
+          i--;
+        }
         break;
       case ' ':
       case '\t':
