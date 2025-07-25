@@ -135,10 +135,14 @@ Token *lexer2(char *query, int *tk_count){
           sindex = 0;
           tmp[sindex++] = c;
           c = query[i++];
-          while(c != 34){
+          while(c != 34 && c != '\0'){
             tmp[sindex++] = c;
             c = query[i++];
           }
+	  if(c == '\0'){
+	    fprintf(stderr, "Unterminated string.\n");
+            exit(1);
+	  }
           tmp[sindex++] = c;
           tmp[sindex] = '\0';
           memcpy(tokens[tindex].value, tmp, strlen(tmp));
