@@ -61,9 +61,7 @@ typedef struct{
   char value[100];
 }Token;
 
-char *keywords[] = {"INTEGER", "TEXT", "REAL", "BLOB", "NULL", "CREATE", "SELECT", "INSERT", "ALTER", "DROP", "DELETE", "UPDATE",
-"FROM", "ORDER", "INTO", "VALUES","IF", "NOT", "TABLE", "EXISTS", "OR", "AND", "PRIMARY", "KEY", "FOREIGN", "REFERENCES", "CONSTRAINT", 
-"UNIQUE", "BY", "SET", "WHERE", "HAVING"};
+extern char *keywords[];
 int check_type(char *str);
 int check_indentifier(char *str);
 int assign_type(Token *tok, int type);
