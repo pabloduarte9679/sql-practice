@@ -1,20 +1,20 @@
 CC = cc
 
-all: lexer parser main
+all: main
 
-main: main.c
-	${CC} -o main main.c -lncurses
+main.o: main.c
+	${CC} -c main.c
 
-lexer: lexer.c
-	${CC} -o lexer lexer.c
-debuglexer: lexer.c
-	${CC} -g -o lexer lexer.c
-lexer2: lexer2.c
-	${CC} -o lexer2 lexer2.c
+lexer2.o: lexer2.c
+	${CC} -c lexer2.c
+
+main: main.o lexer2.o
+	${CC} -o main main.o lexer2.o
+
 parser: parser.c
 	${CC} -o parser parser.c
 
 clean:
-	rm -rf lexer lexer2 parser main
+	rm -rf parser main main.o lexer2.o
 	
 	
