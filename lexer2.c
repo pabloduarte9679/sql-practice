@@ -47,14 +47,6 @@ int check_indentifier(char *str){
   return 0;
 }
 
-int check_integer(char const *str){
-  for(int i = 0; i < strlen(str); i++){
-    if(isdigit(str[i]) == 0){
-      return 0;
-    }
-  }
-  return 1;
-}
 
 int assign_type(Token *tok, int type) {
   if(type >= 0 && type <= 43){
