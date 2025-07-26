@@ -1,26 +1,12 @@
+#include "lexer.h"
 #include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "lexer.h"
 
-int main(){
-  char query[1000];
-  fgets(query, 1000, stdin);
-  for(int i = 0; i < 1000; i++){
-    if(query[i] == '\n'){
-      query[i] = '\0';
-      break;
-    }
-  }
-  int count;
-  Token *tokens = lexer2(query, &count);
-  for(int i = 0; i < count; i++){
-    printf("tokens[%d] = %s, type = %d\n", i, tokens[i].value, tokens[i].type);
-  }
-  free(tokens);
-  return 0;
-}
+char *keywords[] = {"INTEGER", "TEXT", "REAL", "BLOB", "NULL", "CREATE", "SELECT", "INSERT", "ALTER", "DROP", "DELETE", "UPDATE",
+"FROM", "ORDER", "INTO", "VALUES","IF", "NOT", "TABLE", "EXISTS", "OR", "AND", "PRIMARY", "KEY", "FOREIGN", "REFERENCES", "CONSTRAINT",
+"UNIQUE", "BY", "SET", "WHERE", "HAVING"};
 
 int check_type(char *str){
   for(int i = 0; i < 31; i++){
