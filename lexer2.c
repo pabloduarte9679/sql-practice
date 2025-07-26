@@ -100,6 +100,8 @@ Token *lexer2(char *query, int *tk_count){
         break;
       case ';':
         tokens[tindex++].type = SEMI;
+        *tk_count = tindex;
+        return tokens;
         break;
       case '=':
         if(query[i++] == '='){
