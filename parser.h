@@ -47,4 +47,6 @@ typedef struct{
 Stmn *parser(Token *token_list);
 Stmn *parse_create_table(Token *token_list);
 void panic(char *err);
+Token *next(Token *tok);
+void match(int type, Token *token_list);
 #endif
