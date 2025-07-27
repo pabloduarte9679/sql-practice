@@ -1,23 +1,31 @@
 #ifndef PARSER_H
 #define PARSER_H
+#include "lexer.h"
+typedef struct Table Table;
 
 typedef struct{
-  char *name;
-  char *type;
-  char **constraints;
-}Field;
-
-typedef struct{
-  char *field_name;
-  char *type;
-  void *data;
+  int lol;
 }Record;
 
 typedef struct{
   char *name;
-  int field_count;
-  void **fields;
-  void **records;
-}Table;
+  int type;
+  int constraints;
+  Record *records;
+  Table *owner;
+}Column;
 
+struct Table{
+  char *name;
+  Column *colums;
+};
+
+typedef struct{
+  int type;
+  Token *tokens;
+}Stmn;
+
+Stmn *parser(Token *token_list);
+Stmn *parse_create_table(Token *token_list);
+void panic(char *err);
 #endif
