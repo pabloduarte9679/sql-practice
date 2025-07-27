@@ -15,6 +15,10 @@ int main(){
   free(tokens);
 }
 
+Token *next(Token *tok){
+  return ++tok;
+}
+
 Stmn *parser(Token *token_list){
   while(token_list->type != SEMI){
     switch(token_list->type){
@@ -25,7 +29,7 @@ Stmn *parser(Token *token_list){
         printf("unknown statementn\n");
     }
 
-    token_list++;
+    token_list = next(token_list);
   }
 }
 
