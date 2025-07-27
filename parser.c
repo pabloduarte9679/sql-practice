@@ -15,8 +15,10 @@ int main(){
   free(tokens);
 }
 
-Token *next(Token *tok){
-  return ++tok;
+
+int match(int type, Token *token_list){
+  if(token_list->type == type) return 1;
+  return 0;
 }
 
 Stmn *parser(Token *token_list){
@@ -29,24 +31,25 @@ Stmn *parser(Token *token_list){
         printf("unknown statementn\n");
     }
 
-    token_list = next(token_list);
+    token_list++;
   }
 }
 
 Stmn *parse_create_table(Token *token_list){
   token_list++;
-  if(token_list->type == TABLE){
+  if(match(TABLE, token_list)){
     token_list++;
   }else{
     printf("UNKNOWN CREATE TYPE\n");
     return NULL;
   }
 
-  if(token_list->type == LP)  token_list++;
+/*  if(token_list->type == LP)  token_list++;
   else if (token_list->type == IF && (token_list+1)->type == NOT && (token_list+2)->type == EXISTS) token_list += 2;
   else panic("Missing (");
 
   if(token_list->type == IDENTIFIER){}
+*/
 }
 
 void panic(char *err){
