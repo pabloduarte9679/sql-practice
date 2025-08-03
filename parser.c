@@ -3,6 +3,7 @@
 #include <string.h>
 #include "lexer.h"
 #include "parser.h"
+int datatypes[5] = {INTEGER, REAL, TEXT, BLOB, NULL_T};
 
 int main(){
   char query[100];
@@ -63,7 +64,59 @@ Stmn *parse_create_table(Token *token_list){
   if(!match(LP, token_list)) panic("( expected\n");
   token_list++;
 
+  // column defitinions 
+  while(match(IDENTIFIER, token_list)){
+    Column *col = NULL;
+    col = (Column*)malloc(sizeof(Column));
+    col->name = malloc(sizeof(strlen(token_list->value)));
+    memcpy(col->name, token_list->value, strlen(token_list->value));
+    token_list++;
+    switch(token_list->type){
+      case INTEGER:
+      case REAL:
+      case TEXT:
+      case BLOB:
+      case NULL_T:
+        col->type = token_list->type;
+	break;
+      default:
+        panic("datatype expected\n");
+    }
+    token_list++;
 
+    // constraints
+
+    switch(token_list->type){
+      case UNIQUE:
+        col->constraints = UNIQUE;
+	token_list++;
+	break;
+      case PRIMARY:
+        if(match(KEY, token_list+1)){
+	  col->constraints = PRIMARY;
+	  token_list += 2;
+	  break;
+	}else{
+          panic("error near: primary keyword\n");
+	}
+      case NOT:
+        if(match(NULL_T, token_list+1)){
+	  col->constraints = NOT;
+	  token_list += 2;
+	  break;
+	}else{
+          panic("expected null keyword near NOT");
+	}
+      case COMMA:
+        token_list++;
+        continue;
+      case RP:
+        if(match(SEMI, token_list+1)){
+          printf("end\n");
+	  break;
+	}
+    }
+  }
 
 
 }
